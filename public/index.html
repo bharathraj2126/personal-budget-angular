@@ -115,19 +115,25 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        var data = {
-                    data: [30, 350, 90],
+        let data = {
+                    data: [],
                     backgroundColor: [
                         '#ffcd56',
                         '#ff6384',
                         '#36a2eb',
-                        '#fd6b19'
+                        '#fd6b19',
+                        '#fd6b19',
+                        "#000080", 
+                        "#800080", 
+                        "#808080", 
+                        "#a52a2a",
+                        "#2E8B57",
+                        "#8B008B",
+                        "#1E90FF",
+                        "#008080"
                     ],
-                    labels: [
-                    'Eat out',
-                    'Rent',
-                    'Groceries'
-                    ]
+                    labels: []
+                    
         };
         function createChart() {
           new Chart(myChart, {
@@ -149,13 +155,14 @@
        function getBudget() {
             axios.get('/budget')
             .then((res) => {
-                console.log(res.data);
-                for(var i = 0; i < res.data.length; i++ ){
-                    data.data[i] = res.data.myBudget[i].budget;
-                    data.labels[i] = res.data.myBudget[i].title;
+                console.log(res.data.myBudget.length);
+                for(var i = 0; i < res.data.myBudget.length; i++ ){
+                    data.data.push(res.data.myBudget[i].budget);
+                    data.labels.push(res.data.myBudget[i].title);
                 }
-                console.log(data.data[0]);
+                console.log(data);
                 console.log(res.data.myBudget[0].budget);
+                console.log(res.data.myBudget[0].title);
                 createChart();
             })
         };
